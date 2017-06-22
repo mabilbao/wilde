@@ -11,14 +11,23 @@
 |
 */
 
+
+Route::get('denied', 'DeviceController@denied');
 Route::post('/create', 'DeviceController@store');
-Route::get('/rules', 'RuleController@index');
-Route::post('/rules', 'RuleController@store');
 
 //Route::get('/test', 'DeviceController@test');
-Route::get('/delete-all', 'DeviceController@deleteAll');
 Route::get('/example', 'DeviceController@exampleIndex');
 Route::post('/example/create', 'DeviceController@exampleStore');
 
 
-Route::get('/', 'DeviceController@index');
+Route::group(['middleware' =>  'wilde.denied'], function () {
+    Route::group(['middleware' => 'wilde.admin'], function () {
+        Route::get('/rules', 'RuleController@index');
+        Route::post('/rules', 'RuleController@store');
+        Route::post('/rules/{id}/delete', 'RuleController@delete');
+
+        Route::get('/delete-all', 'DeviceController@deleteAll');
+    });
+
+    Route::get('/', 'DeviceController@index');
+});

@@ -14,16 +14,23 @@ class RuleController extends Controller
 
     public function store( Request $request) {
 
-//        $this->validate([
-//            'key' => 'required',
-//            'value' => 'required'
-//         ]);
+        $this->validate($request, [
+            'key' => 'required',
+            'value' => 'required',
+            'rule' => 'required'
+         ]);
 
         $rule = new Rules();
         $rule->key = $request->input('key');
         $rule->value = $request->input('value');
+        $rule->rule = $request->input('rule');
         $rule->save();
 
+        return redirect('/rules');
+    }
+
+    public function delete( Request $request, $id ) {
+        Rules::where('_id', $id)->delete();
         return redirect('/rules');
     }
 }

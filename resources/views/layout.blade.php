@@ -19,7 +19,7 @@
 
 <div class="container container-content">
     @yield('content')
-    <div id="dataheaders" data-headers='{{ json_encode($headers) }}'></div>
+    <div id="dataheaders" data-headers='{{ isset($headers) ? json_encode($headers) : '' }}'></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.3.2/gl-matrix-min.js"></script>
