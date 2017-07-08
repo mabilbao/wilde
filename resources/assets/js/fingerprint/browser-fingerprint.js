@@ -224,18 +224,15 @@ var BrowserFingerprint = {
 
   callbackResponse: function( response ) {
     if ( response.success ) {
-      StatusNav.updateHash(response.data.id);
-      StatusNav.updateAction('-');
-      StatusNav.updateStatus('Reconocido');
+      ClientData.setWildeFP(response.data.id);
+      ClientData.setWildePhase('1');
 
-      Cookies.set('wilde-fp', response.data.id);
-      Cookies.set('wilde-phase', '0');
+      StatusNav.setPhase1();
       Loader.hideLoader();
 
     } else {
-      StatusNav.updateHash('-');
-      StatusNav.updateAction('-');
-      StatusNav.updateStatus('Error al intentar guardar al dispositivo');
+
+      StatusNav.setError();
       console.error(response.data);
     }
   }

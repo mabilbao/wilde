@@ -11,20 +11,14 @@
     <link href="/css/app.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-@include('status-nav')
+    @include('partial.status-nav')
+    @include('partial.loader')
+    @include('partial.data-headers')
 
-<div class="container container-loader">
-    <div class="loader"></div>
-</div>
+    <div class="container container-content">
+        @yield('content')
+    </div>
 
-<div class="container container-content">
-    @yield('content')
-    <div id="dataheaders" data-headers='{{ isset($headers) ? json_encode($headers) : '' }}'></div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.3.2/gl-matrix-min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js"></script>
-@stack('scripts')
+    @stack('scripts')
 </body>
 </html>

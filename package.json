@@ -20,6 +20,9 @@
   },
   "dependencies": {
     "clientjs": "^0.1.11",
-    "detect-zoom": "^1.0.2"
+    "detect-zoom": "^1.0.2",
+    "gl-matrix": "^2.3.2",
+    "seedrandom": "^2.4.3",
+    "three.js": "^0.77.1"
   }
 }

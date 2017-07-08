@@ -14,6 +14,7 @@
         <h3>Informacion General</h3>
         <div id="general"></div>
     </div>
+    <br>
     <div class="results">
         <h3>Informacion Canvas</h3>
         <canvas id="wilde-canvas"></canvas>

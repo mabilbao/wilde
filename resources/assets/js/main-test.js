@@ -13,9 +13,8 @@ var BrowserFingerprintTest = {
   secondTexture: null,
 
   init : function() {
-    StatusNav.updateHash('Sin hash');
-    StatusNav.updateAction('Obteniendo Hash...');
-    StatusNav.updateStatus('Esto es una prueba');
+
+    StatusNav.setTest();
 
     // Prepare Samples
     BrowserFingerprintTest.initSamples();
@@ -271,14 +270,13 @@ var BrowserFingerprintTest = {
     if ( response.success ) {
       StatusNav.updateHash(response.data.id);
       StatusNav.updateAction('-');
-      StatusNav.updateStatus('Reconocido');
+      StatusNav.updatePhase('-');
+      StatusNav.updateStatus('Fin de la prueba');
 
       Loader.hideLoader();
 
     } else {
-      StatusNav.updateHash('-');
-      StatusNav.updateAction('-');
-      StatusNav.updateStatus('Error al intentar guardar al dispositivo');
+      StatusNav.setError();
       console.error(response.data);
     }
   }
