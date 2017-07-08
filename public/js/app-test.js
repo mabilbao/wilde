@@ -42916,8 +42916,12 @@ var General = function() {
     try {
       var result = [];
       // Very simple now, need to make it more complex (geo shapes etc)
-      var canvas = document.createElement("canvas");
-      canvas.width = 2000;
+      if ( document.getElementById("wilde-canvas") ) {
+        var canvas = document.getElementById("wilde-canvas");
+      } else {
+        var canvas = document.createElement("canvas");
+      }
+      canvas.width = 500;
       canvas.height = 200;
       canvas.style.display = "inline";
       var ctx = canvas.getContext("2d");
@@ -43322,6 +43326,10 @@ StatusNav = {
 
   updateHash: function ( hash ) {
     $('.hash').text(hash);
+  },
+
+  updatePhase: function ( action ) {
+    $('.phase').text(action);
   },
 
   updateAction: function ( action ) {

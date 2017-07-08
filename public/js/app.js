@@ -43082,8 +43082,12 @@ var General = function() {
     try {
       var result = [];
       // Very simple now, need to make it more complex (geo shapes etc)
-      var canvas = document.createElement("canvas");
-      canvas.width = 2000;
+      if ( document.getElementById("wilde-canvas") ) {
+        var canvas = document.getElementById("wilde-canvas");
+      } else {
+        var canvas = document.createElement("canvas");
+      }
+      canvas.width = 500;
       canvas.height = 200;
       canvas.style.display = "inline";
       var ctx = canvas.getContext("2d");
@@ -43693,6 +43697,7 @@ var BrowserFingerprint = {
       StatusNav.updateStatus('Reconocido');
 
       Cookies.set('wilde-fp', response.data.id);
+      Cookies.set('wilde-phase', '0');
       Loader.hideLoader();
 
     } else {
@@ -43732,6 +43737,10 @@ StatusNav = {
     $('.hash').text(hash);
   },
 
+  updatePhase: function ( action ) {
+    $('.phase').text(action);
+  },
+
   updateAction: function ( action ) {
     $('.status-nav .action').text(action);
   }
@@ -43742,10 +43751,12 @@ var Main = {
   init: function() {
 
     var cookie = Cookies.get('wilde-fp');
+    var phase = Cookies.get('wilde-phase');
 
     if ( typeof cookie === 'undefined' ) {
       StatusNav.updateHash('Sin hash');
       StatusNav.updateAction('Obteniendo Hash...');
+      StatusNav.updatePhase('0');
       StatusNav.updateStatus('No reconocido');
 
       BrowserFingerprint.getFP();
@@ -43753,6 +43764,7 @@ var Main = {
     } else {
       StatusNav.updateHash(cookie);
       StatusNav.updateAction('-');
+      StatusNav.updatePhase(phase);
       StatusNav.updateStatus('Reconocido');
       Loader.hideLoader();
     }

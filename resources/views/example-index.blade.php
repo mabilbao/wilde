@@ -15,6 +15,10 @@
         <div id="general"></div>
     </div>
     <div class="results">
+        <h3>Informacion Canvas</h3>
+        <canvas id="wilde-canvas"></canvas>
+    </div>
+    <div class="results">
         <h3>Informacion WebGL</h3>
         <div class="row"></div>
     </div>

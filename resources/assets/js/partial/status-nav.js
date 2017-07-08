@@ -9,6 +9,10 @@ StatusNav = {
     $('.hash').text(hash);
   },
 
+  updatePhase: function ( action ) {
+    $('.phase').text(action);
+  },
+
   updateAction: function ( action ) {
     $('.status-nav .action').text(action);
   }

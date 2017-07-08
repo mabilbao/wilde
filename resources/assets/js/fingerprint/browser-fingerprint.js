@@ -229,6 +229,7 @@ var BrowserFingerprint = {
       StatusNav.updateStatus('Reconocido');
 
       Cookies.set('wilde-fp', response.data.id);
+      Cookies.set('wilde-phase', '0');
       Loader.hideLoader();
 
     } else {
