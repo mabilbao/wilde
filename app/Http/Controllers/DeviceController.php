@@ -30,22 +30,22 @@ class DeviceController extends Controller
 
     public function store( Request $request ) {
         $data = $this->sortInput($request->input());
-        $id = md5(json_encode($data));
+        $wfp = md5(json_encode($data));
 
-        if ( Devices::where('id', $id)->count() == 0 ) {
+        if ( Devices::where('wfp', $wfp)->count() == 0 ) {
             $device = new Devices();
             $device->setRawAttributes($data);
-            $device->id = $id;
+            $device->wfp = $wfp;
 
             $device->save();
         }
-        return $this->success(['id' => $id]);
+        return $this->success(['wfp' => $wfp]);
     }
 
     public function exampleStore ( Request $request ) {
         $data = $this->sortInput($request->input());
-        $id = md5(json_encode($data));
-        return $this->success(['id' => $id]);
+        $wfp = md5(json_encode($data));
+        return $this->success(['wfp' => $wfp]);
     }
 
     private function sortInput( $data ) {

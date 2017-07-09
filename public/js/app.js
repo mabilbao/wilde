@@ -44727,7 +44727,7 @@ var BrowserFingerprint = {
 
   callbackResponse: function( response ) {
     if ( response.success ) {
-      ClientData.setWildeFP(response.data.id);
+      ClientData.setWildeFP(response.data.wfp);
       ClientData.setWildePhase('1');
 
       StatusNav.setPhase1();

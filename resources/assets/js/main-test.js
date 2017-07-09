@@ -268,7 +268,7 @@ var BrowserFingerprintTest = {
 
   callbackResponse: function( response ) {
     if ( response.success ) {
-      StatusNav.updateHash(response.data.id);
+      StatusNav.updateHash(response.data.wfp);
       StatusNav.updateAction('-');
       StatusNav.updatePhase('-');
       StatusNav.updateStatus('Fin de la prueba');

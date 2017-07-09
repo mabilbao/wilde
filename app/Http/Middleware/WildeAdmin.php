@@ -15,10 +15,10 @@ class WildeAdmin
             return redirect('/denied');
         }
 
-        $id = $_COOKIE['wilde-fp'];
+        $wfp = $_COOKIE['wilde-fp'];
         $rules = Rules::whereRule('admin')->get();
         foreach ($rules as $rule) {
-            if ( $rule->value == $id ) {
+            if ( $rule->value == $wfp ) {
                 return $next($request);
             }
         }
