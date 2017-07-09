@@ -16,7 +16,6 @@
         @endif
 
         <div style="margin: 50px 0 0 0; text-align: center">
-            {{--<h2>Crear Regla</h2>--}}
             <form class="form-inline" method="post" action="/rules">
                 <div class="form-group">
                     <label class="sr-only" for="key">Clave</label>
@@ -38,41 +37,31 @@
             </form>
         </div>
 
-        <div style="margin: 50px 0; text-align: center">
-            @if ( !$rules->isEmpty() )
-                <div class="row">
-                    <div class="col-lg-3">
-                        <h2>Clave</h2>
-                    </div>
-                    <div class="col-lg-3">
-                        <h2>Valor</h2>
-                    </div>
-                    <div class="col-lg-3">
-                        <h2>Regla</h2>
-                    </div>
-                    <div class="col-lg-3">
-                        <h2>Acciones</h2>
-                    </div>
-                </div>
-                @foreach( $rules as $rule )
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <p>{{$rule->key}}</p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p>{{$rule->value}}</p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p>{{$rule->rule}}</p>
-                        </div>
-                        <div class="col-lg-3">
-                            <form action="/rules/{{$rule->_id}}/delete" method="post">
-                                <button type="submit" class="btn btn-danger">Borrar</button>
-                            </form>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
+        <div class="table-responsive" style="margin: 50px 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Clave</th>
+                        <th>Valor</th>
+                        <th>Regla</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( $rules as $rule )
+                        <tr>
+                            <td>{{$rule->key}}</td>
+                            <td>{{$rule->value}}</td>
+                            <td>{{$rule->rule}}</td>
+                            <td>
+                                <form action="/rules/{{$rule->_id}}/delete" method="post">
+                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
