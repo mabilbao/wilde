@@ -31,21 +31,26 @@ class DeviceController extends Controller
     public function store( Request $request ) {
         $data = $this->sortInput($request->input());
         $wfp = md5(json_encode($data));
+        $device = Devices::where('wfp', $wfp)->first();
 
-        if ( Devices::where('wfp', $wfp)->count() == 0 ) {
+        if ( !$device ) {
             $device = new Devices();
             $device->setRawAttributes($data);
-            $device->wfp = $wfp;
+
+            $date = new \DateTime();
+            $device->wfp = $wfp . '_' . $date->getTimestamp();
 
             $device->save();
         }
-        return $this->success(['wfp' => $wfp]);
+        return $this->success(['wfp' => $device->wfp]);
     }
 
     public function exampleStore ( Request $request ) {
         $data = $this->sortInput($request->input());
         $wfp = md5(json_encode($data));
-        return $this->success(['wfp' => $wfp]);
+        $date = new \DateTime();
+
+        return $this->success(['wfp' => $wfp . '_' . $date->getTimestamp()]);
     }
 
     private function sortInput( $data ) {
@@ -57,13 +62,6 @@ class DeviceController extends Controller
         return $dataSorted;
     }
 
-    private function success ( $data = null ) {
-        $dataResponse = ['success' => true];
-        if ( $data ) {
-            $dataResponse['data'] = $data;
-        }
-        return Response::json($dataResponse, 200);
-    }
 
 
 

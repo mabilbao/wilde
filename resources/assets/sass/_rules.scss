@@ -1,0 +1,15 @@
+.page-rule {
+  &__title {
+    text-align: center;
+    img {
+      width: 100px;
+    }
+  }
+  .form-rules {
+    max-width: 450px;
+    margin: 0 auto;
+    button {
+      text-align: center;
+    }
+  }
+}

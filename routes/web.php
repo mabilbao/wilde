@@ -25,6 +25,7 @@ Route::group(['middleware' =>  'wilde.denied'], function () {
         Route::get('/rules', 'RuleController@index');
         Route::post('/rules', 'RuleController@store');
         Route::post('/rules/{id}/delete', 'RuleController@delete');
+        Route::get('/rules/{key}/values', 'RuleController@getValues');
 
         Route::get('/delete-all', 'DeviceController@deleteAll');
     });

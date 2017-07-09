@@ -5,9 +5,7 @@
 
     <div class="container">
         <div style="text-align: center">
-            <a href="/">
-                <img src="wicon2.png" width="150">
-            </a>
+            <img src="wicon2.png" width="100">
             <h1>Demostracion</h1>
         </div>
 

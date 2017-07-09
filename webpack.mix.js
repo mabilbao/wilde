@@ -61,6 +61,7 @@ mix.scripts([
   'resources/assets/js/fingerprint/browser-fingerprint.js',
   'resources/assets/js/partial/client-data.js',
   'resources/assets/js/partial/loader.js',
+  'resources/assets/js/partial/rules.js',
   'resources/assets/js/partial/status-nav.js',
   'resources/assets/js/main.js'
 ], 'public/js/app.js');

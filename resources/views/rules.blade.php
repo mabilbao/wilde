@@ -2,8 +2,11 @@
 
 
 @section('content')
-    <div class="container">
-        <h1>Reglas</h1>
+    <div class="container page-rule">
+        <div class="page-rule__title">
+            <img src="wicon2.png">
+            <h1>Reglas</h1>
+        </div>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -15,27 +18,37 @@
             </div>
         @endif
 
-        <div style="margin: 50px 0 0 0; text-align: center">
-            <form class="form-inline" method="post" action="/rules">
-                <div class="form-group">
-                    <label class="sr-only" for="key">Clave</label>
-                    <input type="text" name="key" class="form-control" id="key" placeholder="Clave">
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="value">Valor</label>
-                    <input type="text" name="value" class="form-control" id="value" placeholder="Valor">
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="value">Regla</label>
-                    <select name="rule" class="form-control" id="rule" placeholder="Regla">
-                        <option value="admin" selected>Admin</option>
-                        <option value="denied">Denegar</option>
-                        <option value="offer">Oferta</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Crear!</button>
-            </form>
-        </div>
+        <h3>Crear Reglas</h3>
+
+        <form class="form-rules" method="post" action="/rules">
+            <div class="form-group">
+                <label for="key">Clave</label>
+                <select name="key" class="form-control" id="key" placeholder="Clave">
+                    @foreach( $keys as $key => $value )
+                        <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="value">Valor</label>
+                <input name="value" class="form-control" id="value" placeholder="Valor">
+            </div>
+            <div class="form-group">
+                <label for="value">o Seleccione uno:</label>
+                <select class="form-control" id="chosen" placeholder="Valor"></select>
+            </div>
+            <div class="form-group">
+                <label for="value">Regla</label>
+                <select name="rule" class="form-control" id="rule" placeholder="Regla">
+                    @foreach( $actions as $key => $value )
+                        <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear!</button>
+        </form>
+
+        <h3>Reglas Creadas</h3>
 
         <div class="table-responsive" style="margin: 50px 0">
             <table class="table">
