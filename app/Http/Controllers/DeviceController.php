@@ -10,15 +10,14 @@ use DB;
 use Session;
 use Response;
 
-class DeviceController
+class DeviceController extends Controller
 {
     public function index( Request $request ) {
-        $data['headers'] = $request->headers->all();
-        return view('index', $data);
+        return view('index');
     }
 
     public function denied ( Request $request ) {
-        $data['headers'] = $request->headers->all();
+        $data = [];
         if ( Session::has('message') ) {
             $data['message'] = Session::get('message');
         }
@@ -26,8 +25,7 @@ class DeviceController
     }
 
     public function exampleIndex( Request $request ) {
-        $data['headers'] = $request->headers->all();
-        return view('example-index', $data);
+        return view('example-index');
     }
 
     public function store( Request $request ) {
@@ -47,7 +45,6 @@ class DeviceController
     public function exampleStore ( Request $request ) {
         $data = $this->sortInput($request->input());
         $id = md5(json_encode($data));
-//        dd($id, $data);
         return $this->success(['id' => $id]);
     }
 

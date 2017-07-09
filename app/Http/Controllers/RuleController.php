@@ -7,7 +7,6 @@ use App\Models\Rules;
 class RuleController extends Controller
 {
     public function index( Request $request) {
-        $data['headers'] = $request->headers->all();
         $data['rules'] = Rules::all();
         return view ('rules', $data);
     }
