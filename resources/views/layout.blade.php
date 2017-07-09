@@ -11,11 +11,11 @@
     <link href="/css/app.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    @include('partial.status-nav')
+    @include('partial.nav')
     @include('partial.loader')
     @include('partial.data-headers')
 
-    <div class="container container-content">
+    <div class="container-content">
         @yield('content')
     </div>
 
