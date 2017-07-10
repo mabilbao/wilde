@@ -38,6 +38,8 @@
             </div>
         </div>
     </div>
+
+    @include('partial.welcome-modal')
 @endsection
 
 @push('scripts')

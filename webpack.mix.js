@@ -16,6 +16,7 @@ mix.sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.scripts([
     'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
     'node_modules/clientjs/dist/client.min.js',
     'node_modules/detect-zoom/detect-zoom.min.js',
     'node_modules/gl-matrix/dist/gl-matrix-min.js',
@@ -40,6 +41,7 @@ mix.scripts([
 
 mix.scripts([
   'node_modules/jquery/dist/jquery.min.js',
+  'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
   'node_modules/clientjs/dist/client.min.js',
   'node_modules/detect-zoom/detect-zoom.min.js',
   'node_modules/js-cookie/src/js.cookie.js',
@@ -63,6 +65,7 @@ mix.scripts([
   'resources/assets/js/partial/loader.js',
   'resources/assets/js/partial/rules.js',
   'resources/assets/js/partial/status-nav.js',
+  'resources/assets/js/server.js',
   'resources/assets/js/main.js'
 ], 'public/js/app.js');
 

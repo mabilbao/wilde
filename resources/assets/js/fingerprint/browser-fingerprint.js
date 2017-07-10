@@ -218,23 +218,7 @@ var BrowserFingerprint = {
     if ( BrowserFingerprint.generalTestDone && BrowserFingerprint.webGlTestDone ) {
       $('.status').text('Obteniendo Hash Fingerprint...');
 
-      $.post('/create', BrowserFingerprint.dataFingerprint, BrowserFingerprint.callbackResponse);
-    }
-  },
-
-  callbackResponse: function( response ) {
-    if ( response.success ) {
-      ClientData.setWildeFP(response.data.wfp);
-      ClientData.setWildePhase('1');
-
-      StatusNav.setPhase1();
-      Loader.hideLoader();
-
-    } else {
-
-      StatusNav.setError();
-      console.error(response.data);
+      $.post('/create', BrowserFingerprint.dataFingerprint, Server.phase0CB);
     }
   }
-
 };

@@ -12,22 +12,30 @@
 */
 
 
+// Denied page
 Route::get('denied', 'DeviceController@denied');
+
+// Create Fingerprint
 Route::post('/create', 'DeviceController@store');
 
-//Route::get('/test', 'DeviceController@test');
+// Example page
 Route::get('/example', 'DeviceController@exampleIndex');
 Route::post('/example/create', 'DeviceController@exampleStore');
 
-
 Route::group(['middleware' =>  'wilde.denied'], function () {
-    Route::group(['middleware' => 'wilde.admin'], function () {
-        Route::get('/rules', 'RuleController@index');
-        Route::post('/rules', 'RuleController@store');
-        Route::post('/rules/{id}/delete', 'RuleController@delete');
-        Route::get('/rules/{key}/values', 'RuleController@getValues');
 
-        Route::get('/delete-all', 'DeviceController@deleteAll');
+    Route::group(['middleware' => 'wilde.auth'], function () {
+
+        Route::post('/add-data', 'DeviceController@addData');
+
+        Route::group(['middleware' => 'wilde.admin'], function () {
+            Route::get('/rules', 'RuleController@index');
+            Route::post('/rules', 'RuleController@store');
+            Route::post('/rules/{id}/delete', 'RuleController@delete');
+            Route::get('/rules/{key}/values', 'RuleController@getValues');
+
+            Route::get('/delete-all', 'DeviceController@deleteAll');
+        });
     });
 
     Route::get('/', 'DeviceController@index');

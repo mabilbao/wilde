@@ -32,10 +32,17 @@
                 <span>View FingerPrint</span>
             </div>
         </a>
-        <a href="/rules" class="nav__title">
-            <div>
-                <span>Rules</span>
-            </div>
-        </a>
+        @if ( $me && isset($me->isAdmin) && $me->isAdmin )
+            <a href="/rules" class="nav__title">
+                <div>
+                    <span>Rules</span>
+                </div>
+            </a>
+        @endif
+    </div>
+    <div class="col-md-3 welcome">
+        @if ( $me && isset($me->extra['name']) )
+            <p>Bienvenido de nuevo {{$me->extra['name']}}</p>
+        @endif
     </div>
 </div>

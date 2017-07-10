@@ -1,13 +1,31 @@
 var Main = {
-  init: function() {
+  init: function () {
 
-    if ( ClientData.getWildeFP() ) {
+    if (ClientData.getWildeFP()) {
       StatusNav.setPhase1();
       Loader.hideLoader();
     } else {
-      StatusNav.setPhase0();
-      BrowserFingerprint.getFP();
+      Server.phase0();
     }
+
+    $('.submit-form-welcome').click(Main.submitFormWelcome);
+  },
+
+  submitFormWelcome: function () {
+    var formWelcome = $('.form-welcome');
+    var data = {};
+    data.name = formWelcome.find('[name="name"]').val();
+    Server.addData(data, Main.submitFormWelcomeCB);
+  },
+
+  submitFormWelcomeCB: function ( response ) {
+    var formWelcome = $('.form-welcome');
+    var welcome = $('.welcome');
+    var p = document.createElement('p');
+    p.innerHTML = "Bienvenido " + response.name;
+    welcome.append(p);
+
+    $('#welcome').modal('hide');
   }
 };
 

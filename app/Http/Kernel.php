@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
 //            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\WildeInit::class
         ],
 
         'api' => [
@@ -57,6 +58,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'wilde.admin' => \App\Http\Middleware\WildeAdmin::class,
+        'wilde.auth' => \App\Http\Middleware\WildeAuth::class,
         'wilde.denied' => \App\Http\Middleware\WildeDenied::class,
     ];
 }

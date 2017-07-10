@@ -12,6 +12,7 @@ use Response;
 
 class DeviceController extends Controller
 {
+
     public function index( Request $request ) {
         return view('index');
     }
@@ -29,16 +30,17 @@ class DeviceController extends Controller
     }
 
     public function store( Request $request ) {
-        $data = $this->sortInput($request->input());
+        $data = $this->sortInput($request->except('me'));
         $wfp = md5(json_encode($data));
         $device = Devices::where('wfp', $wfp)->first();
 
         if ( !$device ) {
             $device = new Devices();
-            $device->setRawAttributes($data);
+            $device->setRawAttributes(['wfpdata' => $data]);
 
             $date = new \DateTime();
-            $device->wfp = $wfp . '_' . $date->getTimestamp();
+            $device->wfp = $wfp;
+//            $device->wfp = $wfp . '_' . $date->getTimestamp();
 
             $device->save();
         }
@@ -48,10 +50,23 @@ class DeviceController extends Controller
     public function exampleStore ( Request $request ) {
         $data = $this->sortInput($request->input());
         $wfp = md5(json_encode($data));
-        $date = new \DateTime();
+//        $date = new \DateTime();
 
-        return $this->success(['wfp' => $wfp . '_' . $date->getTimestamp()]);
+//        return $this->success(['wfp' => $wfp . '_' . $date->getTimestamp()]);
+        return $this->success(['wfp' => $wfp]);
     }
+
+
+    public function addData( Request $request ) {
+        if ( !$this->me->extra ) {
+            $this->me->extra = [];
+        }
+        $this->me->extra = array_merge($this->me->extra, $request->input());
+        $this->me->save();
+
+        return $this->success($request->input());
+    }
+
 
     private function sortInput( $data ) {
         $dataSorted = $data;

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 use View;
 use Response;
 
@@ -13,10 +14,15 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
-    {
-        $request = \Request::instance();
-        View::share('headers', $request->headers->all());
+    protected $me;
+
+    public function __construct(Request $request) {
+        $this->middleware(function ($request, $next) {
+            $this->me = $request->attributes->get('me');
+            View::share('me', $this->me);
+            View::share('headers', $request->headers->all());
+            return $next($request);
+        });
     }
 
     protected function success ( $data = null ) {
