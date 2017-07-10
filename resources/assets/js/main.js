@@ -21,11 +21,13 @@ var Main = {
   },
 
   submitFormWelcomeCB: function ( response ) {
-    var formWelcome = $('.form-welcome');
     var welcome = $('.welcome');
     var p = document.createElement('p');
     p.innerHTML = "Bienvenido " + response.data.name;
     welcome.append(p);
+
+    ClientData.setWildePhase(2);
+    StatusNav.setPhase2();
 
     $('#welcome').modal('hide');
   }

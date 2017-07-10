@@ -60,6 +60,7 @@ class DeviceController extends Controller
 
                 $date = new \DateTime();
                 $device->wfp = $wfp;
+                $device->phase = 1;
 //            $device->wfp = $wfp . '_' . $date->getTimestamp();
 
                 $device->save();
@@ -83,6 +84,7 @@ class DeviceController extends Controller
             $this->me->extra = [];
         }
         $this->me->extra = array_merge($this->me->extra, $request->input());
+        $this->me->phase = 2;
         $this->me->save();
 
         return $this->success($request->input());

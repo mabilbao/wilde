@@ -33,8 +33,11 @@ var Server = {
       if ( ClientData.getWildeFP() != response.data.wfp ) {
         ClientData.setWildeFP(response.data.wfp);
         ClientData.setWildePhase('1');
-
+      }
+      if ( ClientData.getWildePhase() == 1 ) {
         StatusNav.setPhase1();
+      } else {
+        StatusNav.setPhase2();
       }
     }
   },

@@ -44890,6 +44890,13 @@ var StatusNav = {
     StatusNav.updateStatus('Reconocido');
   },
 
+  setPhase2 : function() {
+    StatusNav.updateHash(ClientData.getWildeFP());
+    StatusNav.updateAction('Completo');
+    StatusNav.updatePhase(ClientData.getWildePhase());
+    StatusNav.updateStatus('Reconocido');
+  },
+
   setChecking : function() {
     StatusNav.updateHash(ClientData.getWildeFP());
     StatusNav.updateAction('Chequeando Hash...');
@@ -44964,8 +44971,11 @@ var Server = {
       if ( ClientData.getWildeFP() != response.data.wfp ) {
         ClientData.setWildeFP(response.data.wfp);
         ClientData.setWildePhase('1');
-
+      }
+      if ( ClientData.getWildePhase() == 1 ) {
         StatusNav.setPhase1();
+      } else {
+        StatusNav.setPhase2();
       }
     }
   },
@@ -45007,11 +45017,13 @@ var Main = {
   },
 
   submitFormWelcomeCB: function ( response ) {
-    var formWelcome = $('.form-welcome');
     var welcome = $('.welcome');
     var p = document.createElement('p');
     p.innerHTML = "Bienvenido " + response.data.name;
     welcome.append(p);
+
+    ClientData.setWildePhase(2);
+    StatusNav.setPhase2();
 
     $('#welcome').modal('hide');
   }
