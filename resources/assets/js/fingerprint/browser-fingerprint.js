@@ -12,7 +12,10 @@ var BrowserFingerprint = {
   firstTexture: null,
   secondTexture: null,
 
-  getFP : function() {
+  cb: null,
+
+  getFP : function( cb ) {
+    BrowserFingerprint.cb = cb;
     BrowserFingerprint.initSamples();
   },
 
@@ -217,8 +220,8 @@ var BrowserFingerprint = {
   checkIsReady: function () {
     if ( BrowserFingerprint.generalTestDone && BrowserFingerprint.webGlTestDone ) {
       $('.status').text('Obteniendo Hash Fingerprint...');
-
-      $.post('/create', BrowserFingerprint.dataFingerprint, Server.phase0CB);
+      // BrowserFingerprint.dataFingerprint.marton = 'martoooooooooon';
+      $.post('/create', BrowserFingerprint.dataFingerprint, BrowserFingerprint.cb);
     }
   }
 };

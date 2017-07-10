@@ -32,19 +32,40 @@ class DeviceController extends Controller
     public function store( Request $request ) {
         $data = $this->sortInput($request->except('me'));
         $wfp = md5(json_encode($data));
-        $device = Devices::where('wfp', $wfp)->first();
 
-        if ( !$device ) {
-            $device = new Devices();
-            $device->setRawAttributes(['wfpdata' => $data]);
+        if ( $this->me && $this->me->wfp ) {
+            if ( $this->me->wfp != $wfp ) {
 
-            $date = new \DateTime();
-            $device->wfp = $wfp;
+                // Wilde need to update all the browser-device
+                $old_wfp = $this->me->wfp;
+
+                // device
+                $this->me->wfpdata = $data;
+                $this->me->wfp = $wfp;
+                $this->me->save();
+
+                // rules
+                Rules::where('value', $old_wfp)->update([
+                   'value' => $this->me->wfp
+                ]);
+            }
+            return $this->success(['wfp' => $this->me->wfp]);
+
+        } else {
+            $device = Devices::where('wfp', $wfp)->first();
+
+            if ( !$device ) {
+                $device = new Devices();
+                $device->setRawAttributes(['wfpdata' => $data]);
+
+                $date = new \DateTime();
+                $device->wfp = $wfp;
 //            $device->wfp = $wfp . '_' . $date->getTimestamp();
 
-            $device->save();
+                $device->save();
+            }
+            return $this->success(['wfp' => $device->wfp]);
         }
-        return $this->success(['wfp' => $device->wfp]);
     }
 
     public function exampleStore ( Request $request ) {

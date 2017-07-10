@@ -44376,6 +44376,13 @@ var StatusNav = {
     StatusNav.updateStatus('Reconocido');
   },
 
+  setChecking : function() {
+    StatusNav.updateHash(ClientData.getWildeFP());
+    StatusNav.updateAction('Chequeando Hash...');
+    StatusNav.updatePhase(ClientData.getWildePhase());
+    StatusNav.updateStatus('Reconocido');
+  },
+
   setError : function() {
     StatusNav.updateHash('-');
     StatusNav.updateAction('-');

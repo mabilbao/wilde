@@ -44522,7 +44522,10 @@ var BrowserFingerprint = {
   firstTexture: null,
   secondTexture: null,
 
-  getFP : function() {
+  cb: null,
+
+  getFP : function( cb ) {
+    BrowserFingerprint.cb = cb;
     BrowserFingerprint.initSamples();
   },
 
@@ -44727,8 +44730,8 @@ var BrowserFingerprint = {
   checkIsReady: function () {
     if ( BrowserFingerprint.generalTestDone && BrowserFingerprint.webGlTestDone ) {
       $('.status').text('Obteniendo Hash Fingerprint...');
-
-      $.post('/create', BrowserFingerprint.dataFingerprint, Server.phase0CB);
+      // BrowserFingerprint.dataFingerprint.marton = 'martoooooooooon';
+      $.post('/create', BrowserFingerprint.dataFingerprint, BrowserFingerprint.cb);
     }
   }
 };
@@ -44887,6 +44890,13 @@ var StatusNav = {
     StatusNav.updateStatus('Reconocido');
   },
 
+  setChecking : function() {
+    StatusNav.updateHash(ClientData.getWildeFP());
+    StatusNav.updateAction('Chequeando Hash...');
+    StatusNav.updatePhase(ClientData.getWildePhase());
+    StatusNav.updateStatus('Reconocido');
+  },
+
   setError : function() {
     StatusNav.updateHash('-');
     StatusNav.updateAction('-');
@@ -44923,7 +44933,7 @@ var Server = {
   init: function(){},
 
   phase0: function() {
-    BrowserFingerprint.getFP();
+    BrowserFingerprint.getFP(Server.phase0CB);
     StatusNav.setPhase0();
   },
 
@@ -44944,18 +44954,31 @@ var Server = {
     }
   },
 
+  checkFP: function(){
+    StatusNav.setChecking();
+    BrowserFingerprint.getFP(Server.checkFPCB);
+  },
+
+  checkFPCB: function( response ) {
+    if ( response.success ) {
+      if ( ClientData.getWildeFP() != response.data.wfp ) {
+        ClientData.setWildeFP(response.data.wfp);
+        ClientData.setWildePhase('1');
+
+        StatusNav.setPhase1();
+      }
+    }
+  },
+
   addData: function(data, cb) {
     $.post('add-data', data, function(response) {
       if ( response.success ) {
-        // console.log(response);
-        cb( response.data );
+        cb( response );
       }else {
         console.error(response);
       }
     })
   },
-
-
 };
 
 $(Server.init());
@@ -44967,6 +44990,8 @@ var Main = {
     if (ClientData.getWildeFP()) {
       StatusNav.setPhase1();
       Loader.hideLoader();
+
+      Server.checkFP();
     } else {
       Server.phase0();
     }
@@ -44985,7 +45010,7 @@ var Main = {
     var formWelcome = $('.form-welcome');
     var welcome = $('.welcome');
     var p = document.createElement('p');
-    p.innerHTML = "Bienvenido " + response.name;
+    p.innerHTML = "Bienvenido " + response.data.name;
     welcome.append(p);
 
     $('#welcome').modal('hide');

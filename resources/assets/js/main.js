@@ -4,6 +4,8 @@ var Main = {
     if (ClientData.getWildeFP()) {
       StatusNav.setPhase1();
       Loader.hideLoader();
+
+      Server.checkFP();
     } else {
       Server.phase0();
     }
@@ -22,7 +24,7 @@ var Main = {
     var formWelcome = $('.form-welcome');
     var welcome = $('.welcome');
     var p = document.createElement('p');
-    p.innerHTML = "Bienvenido " + response.name;
+    p.innerHTML = "Bienvenido " + response.data.name;
     welcome.append(p);
 
     $('#welcome').modal('hide');

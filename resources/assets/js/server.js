@@ -2,7 +2,7 @@ var Server = {
   init: function(){},
 
   phase0: function() {
-    BrowserFingerprint.getFP();
+    BrowserFingerprint.getFP(Server.phase0CB);
     StatusNav.setPhase0();
   },
 
@@ -23,18 +23,31 @@ var Server = {
     }
   },
 
+  checkFP: function(){
+    StatusNav.setChecking();
+    BrowserFingerprint.getFP(Server.checkFPCB);
+  },
+
+  checkFPCB: function( response ) {
+    if ( response.success ) {
+      if ( ClientData.getWildeFP() != response.data.wfp ) {
+        ClientData.setWildeFP(response.data.wfp);
+        ClientData.setWildePhase('1');
+
+        StatusNav.setPhase1();
+      }
+    }
+  },
+
   addData: function(data, cb) {
     $.post('add-data', data, function(response) {
       if ( response.success ) {
-        // console.log(response);
-        cb( response.data );
+        cb( response );
       }else {
         console.error(response);
       }
     })
   },
-
-
 };
 
 $(Server.init());
