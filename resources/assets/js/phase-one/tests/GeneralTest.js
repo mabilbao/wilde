@@ -201,7 +201,11 @@ var General = function() {
   };
 
   this.getWebglCanvas = function() {
-    var canvas = document.createElement("canvas");
+    if ( document.getElementById("wilde-webgl") ) {
+      var canvas = document.getElementById("wilde-webgl");
+    } else {
+      var canvas = document.createElement("canvas");
+    }
     var gl = null;
     try {
       gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
@@ -332,7 +336,7 @@ var General = function() {
         result.push("webgl fragment shader low int precision:" + gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.LOW_INT ).precision);
         result.push("webgl fragment shader low int precision rangeMin:" + gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.LOW_INT ).rangeMin);
         result.push("webgl fragment shader low int precision rangeMax:" + gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.LOW_INT ).rangeMax);
-        // result.join(result);
+        result.join(result);
         return result;
     } catch ( e ) {
       console.error(e);
@@ -344,9 +348,13 @@ var General = function() {
     var data = {};
     var _this = this;
 
-    // $.getJSON('//api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&format=json&callback=?', function(data) {
-    //   console.log(data.ipAddress);
+    new Fingerprint2().get(function(result, components){
 
+      for ( var index in components ) {
+        if ( components[index].key == 'js_fonts' ) {
+          var firefox_fonts = components[index].value.join();
+        }
+      }
       data['user_agent'] = _this.getUserAgent();
       data['accept'] = _this.getAccept();
       data['accept_encoding'] = _this.getAcceptEncoding();
@@ -356,18 +364,25 @@ var General = function() {
       data['local_storage'] = _this.getLocalStorage();
       data['session_storage'] = _this.getSessionStorage();
       data['timezone'] = _this.getTimeZone();
-      data['resolution'] = _this.getResolution();
-      data['fonts'] = _this.getFonts();
-      // data['headers'] = _this.getHeaders();
       data['platform'] = _this.getPlatform();
       data['ad_block'] = _this.getAdBlocker();
-      data['canvas'] = _this.getCanvas();
+      data['webgl_fp'] = md5(_this.getWebglFp());
       data['webgl_vendor'] = _this.getWebGlVendor();
       data['webgl_renderer'] = _this.getWebGlRenderer();
-      // data['webgl_fp'] = _this.getWebglFp();
       data['cores'] = _this.getCores();
+      if ( !_this.clientJs.isFirefox() ) {
+        data['resolution'] = _this.getResolution();
+        data['fonts'] = _this.getFonts();
+        data['canvas'] = _this.getCanvas();
+      } else {
+        data['fonts'] = firefox_fonts;
+      }
 
       _this.cb(data);
+
+    });
+    // $.getJSON('//api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&format=json&callback=?', function(data) {
+    //   console.log(data.ipAddress);
     // });
   }
 };

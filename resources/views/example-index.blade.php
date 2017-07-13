@@ -23,7 +23,6 @@
             <div class="row"></div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')

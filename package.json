@@ -19,8 +19,10 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
+    "blueimp-md5": "^2.7.0",
     "clientjs": "^0.1.11",
     "detect-zoom": "^1.0.2",
+    "fingerprintjs2": "^1.5.1",
     "gl-matrix": "^2.3.2",
     "seedrandom": "^2.4.3",
     "three.js": "^0.77.1"

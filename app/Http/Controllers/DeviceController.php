@@ -39,6 +39,12 @@ class DeviceController extends Controller
                 // Wilde need to update all the browser-device
                 $old_wfp = $this->me->wfp;
 
+                // save old information as wfphistory
+//                if ( !isset($this->me->wfphistory) ) {
+//                    $this->me->wfphistory = [];
+//                }
+//                $this->me->wfphistory[$old_wfp] = $this->me->wfpdata;
+
                 // device
                 $this->me->wfpdata = $data;
                 $this->me->wfp = $wfp;
@@ -49,12 +55,14 @@ class DeviceController extends Controller
                    'value' => $this->me->wfp
                 ]);
             }
-            return $this->success(['wfp' => $this->me->wfp]);
+            return $this->success(['wfp' => $this->me->wfp, 'new' => false]);
 
         } else {
+            $new = false;
             $device = Devices::where('wfp', $wfp)->first();
 
             if ( !$device ) {
+                $new = true;
                 $device = new Devices();
                 $device->setRawAttributes(['wfpdata' => $data]);
 
@@ -65,7 +73,7 @@ class DeviceController extends Controller
 
                 $device->save();
             }
-            return $this->success(['wfp' => $device->wfp]);
+            return $this->success(['wfp' => $device->wfp, 'new' => $new]);
         }
     }
 

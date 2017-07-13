@@ -1,20 +1,24 @@
 var Server = {
   init: function(){},
 
-  phase0: function() {
-    BrowserFingerprint.getFP(Server.phase0CB);
+  phase1: function() {
+    BrowserFingerprint.getFP(Server.phase1CB);
     StatusNav.setPhase0();
   },
 
-  phase0CB: function( response ){
+  phase1CB: function( response ){
     if ( response.success ) {
       ClientData.setWildeFP(response.data.wfp);
       ClientData.setWildePhase('1');
 
-      StatusNav.setPhase1();
-      Loader.hideLoader();
+      if ( response.data.new ) {
+        StatusNav.setPhase1();
+        Loader.hideLoader();
 
-      $('#welcome').modal();
+        $('#welcome').modal();
+      } else {
+        window.location.reload(true);
+      }
 
     } else {
 
@@ -34,12 +38,20 @@ var Server = {
         ClientData.setWildeFP(response.data.wfp);
         ClientData.setWildePhase('1');
       }
+      StatusNav.setPhase1();
+
       if ( ClientData.getWildePhase() == 1 ) {
-        StatusNav.setPhase1();
-      } else {
-        StatusNav.setPhase2();
+        Server.phase2();
       }
     }
+  },
+
+  phase2: function() {
+    ExtraData.getExtraData(Server.phase2CB);
+  },
+
+  phase2CB: function() {
+    StatusNav.setPhase2();
   },
 
   addData: function(data, cb) {

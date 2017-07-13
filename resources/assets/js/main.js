@@ -7,7 +7,7 @@ var Main = {
 
       Server.checkFP();
     } else {
-      Server.phase0();
+      Server.phase1();
     }
 
     $('.submit-form-welcome').click(Main.submitFormWelcome);
@@ -27,9 +27,13 @@ var Main = {
     welcome.append(p);
 
     ClientData.setWildePhase(2);
-    StatusNav.setPhase2();
+    StatusNav.setPhase1();
 
     $('#welcome').modal('hide');
+
+    if ( ClientData.getWildePhase() == 1 ) {
+      Server.phase2();
+    }
   }
 };
 
