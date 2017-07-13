@@ -242,10 +242,10 @@ var BrowserFingerprintTest = {
     var row = canvas.parentNode.parentNode;
     var results = canvas.parentNode.nextSibling;
 
-    var p = document.createElement('p');
-    p.innerText = 'Result: ' + hash;
-
-    results.appendChild(p);
+    // Show results
+    // var p = document.createElement('p');
+    // p.innerText = 'Result: ' + hash;
+    // results.appendChild(p);
 
     // Set
     var id = row.dataset.id;
