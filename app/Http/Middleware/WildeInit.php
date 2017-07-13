@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Devices;
 use App\Models\Rules;
 use Closure;
+use Illuminate\Support\Str;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -17,11 +18,22 @@ class WildeInit
             $wfp = $_COOKIE['wilde-fp'];
             $me = Devices::where('wfp', $wfp)->first();
 
-            $rules = Rules::whereRule('admin')->get();
+            $rules = Rules::all();
             foreach ($rules as $rule) {
-                if ( $rule->value == $wfp ) {
-                    $prop = 'is'.ucwords(strtolower($rule->rule));
-                    $me->{$prop} = true;
+                switch ( $rule->key ) {
+                    case 'wfp':
+                        if ( $rule->value == $wfp ) {
+                            $prop = Str::camel('is '.$rule->rule);
+                            $me->{$prop} = true;
+                        }
+                        break;
+                    case 'browser':
+                    case 'os':
+                        if ( $rule->value == $me->extra[$rule->key] ) {
+                            $prop = Str::camel('is '.$rule->rule);
+                            $me->{$prop} = true;
+                        }
+                        break;
                 }
             }
             $request->attributes->add(['me' => $me]);

@@ -15,8 +15,11 @@ class RuleController extends Controller
 
     private $keys = [
         'wfp' => 'Wilde fingerprint',
-        'local_storage' => 'Local Storage',
-        'session_storage' => 'Session Storage'
+        'browser' => 'Navegador',
+        'os' => 'Sistema Operativo'
+//        'osVersion' =>
+//        'local_storage' => 'Local Storage',
+//        'session_storage' => 'Session Storage',
     ];
 
     public function index( Request $request) {
@@ -62,13 +65,21 @@ class RuleController extends Controller
                 }
                 return $this->success($response);
                 break;
-            case 'local_storage':
-            case 'session_storage':
-                return $this->success([
-                    '1' => 'Si',
-                    '0' => 'No',
-                ]);
+            case 'browser':
+            case 'os':
+                $devices = Devices::select('extra.'.$key)->get();
+                foreach ($devices as $device) {
+                    $response[$device->extra[$key]] = $device->extra[$key];
+                }
+                return $this->success($response);
                 break;
+//            case 'local_storage':
+//            case 'session_storage':
+//                return $this->success([
+//                    '1' => 'Si',
+//                    '0' => 'No',
+//                ]);
+//                break;
             default:
                 return $this->success();
         }

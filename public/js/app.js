@@ -44890,6 +44890,7 @@ var Rules = {
     $.get('/rules/' + Rules.key.val() + '/values', function(response) {
       Rules.chosen.empty();
       if ( response.success ) {
+        Rules.value.val(Object.keys(response.data)[0]);
         for( var data in response.data) {
           var option = document.createElement('option');
           option.chosen = data;

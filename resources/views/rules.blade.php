@@ -30,7 +30,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="value">Valor</label>
+                <label for="value">Ingrese un valor</label>
                 <input name="value" class="form-control" id="value" placeholder="Valor">
             </div>
             <div class="form-group">
