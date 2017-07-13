@@ -381,8 +381,5 @@ var General = function() {
       _this.cb(data);
 
     });
-    // $.getJSON('//api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&format=json&callback=?', function(data) {
-    //   console.log(data.ipAddress);
-    // });
   }
 };

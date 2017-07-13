@@ -16,6 +16,8 @@ var Server = {
         Loader.hideLoader();
 
         $('#welcome').modal();
+
+        Server.phase2();
       } else {
         window.location.reload(true);
       }
@@ -38,11 +40,7 @@ var Server = {
         ClientData.setWildeFP(response.data.wfp);
         ClientData.setWildePhase('1');
       }
-      StatusNav.setPhase1();
-
-      if ( ClientData.getWildePhase() == 1 ) {
-        Server.phase2();
-      }
+      Server.phase2();
     }
   },
 
@@ -50,8 +48,11 @@ var Server = {
     ExtraData.getExtraData(Server.phase2CB);
   },
 
-  phase2CB: function() {
-    StatusNav.setPhase2();
+  phase2CB: function( response ) {
+    if ( response.success ) {
+      ClientData.setWildePhase('2');
+      StatusNav.setPhase2();
+    }
   },
 
   addData: function(data, cb) {

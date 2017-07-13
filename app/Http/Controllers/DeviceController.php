@@ -92,8 +92,10 @@ class DeviceController extends Controller
         if ( !$this->me->extra ) {
             $this->me->extra = [];
         }
-        $this->me->extra = array_merge($this->me->extra, $request->input());
-//        $this->me->phase = 2;
+        $this->me->extra = array_merge($this->me->extra, $request->except('phase'));
+        if ( $phase = $request->input('phase', false) ) {
+            $this->me->phase = $phase;
+        }
         $this->me->save();
 
         return $this->success($request->input());

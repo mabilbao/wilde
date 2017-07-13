@@ -44414,9 +44414,6 @@ var General = function() {
       _this.cb(data);
 
     });
-    // $.getJSON('//api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&format=json&callback=?', function(data) {
-    //   console.log(data.ipAddress);
-    // });
   }
 };
 getCanvas = function(canvasName) {
@@ -44765,14 +44762,17 @@ var ExtraData = {
     var client = new ClientJS(); // Create A New Client Object
     var data = {};
 
+    // $.getJSON('//api.ipinfodb.com/v3/ip-city/?key=<your_api_key>&format=json&callback=?', function(data) {
+    //   console.log(data);
+    // });
+
     data.browser = client.getBrowser();
     data.os = client.getOS();
     data.osVersion = client.getOSVersion();
     data.isMobile = client.isMobile();
 
-    console.log( data );
-
-    ExtraData.cb();
+    data.phase = 2;
+    Server.addData(data, ExtraData.cb);
   }
 };
 
@@ -44996,6 +44996,8 @@ var Server = {
         Loader.hideLoader();
 
         $('#welcome').modal();
+
+        Server.phase2();
       } else {
         window.location.reload(true);
       }
@@ -45018,11 +45020,7 @@ var Server = {
         ClientData.setWildeFP(response.data.wfp);
         ClientData.setWildePhase('1');
       }
-      StatusNav.setPhase1();
-
-      if ( ClientData.getWildePhase() == 1 ) {
-        Server.phase2();
-      }
+      Server.phase2();
     }
   },
 
@@ -45030,8 +45028,11 @@ var Server = {
     ExtraData.getExtraData(Server.phase2CB);
   },
 
-  phase2CB: function() {
-    StatusNav.setPhase2();
+  phase2CB: function( response ) {
+    if ( response.success ) {
+      ClientData.setWildePhase('2');
+      StatusNav.setPhase2();
+    }
   },
 
   addData: function(data, cb) {
@@ -45075,15 +45076,7 @@ var Main = {
     var p = document.createElement('p');
     p.innerHTML = "Bienvenido " + response.data.name;
     welcome.append(p);
-
-    ClientData.setWildePhase(2);
-    StatusNav.setPhase1();
-
     $('#welcome').modal('hide');
-
-    if ( ClientData.getWildePhase() == 1 ) {
-      Server.phase2();
-    }
   }
 };
 

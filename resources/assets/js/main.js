@@ -25,15 +25,7 @@ var Main = {
     var p = document.createElement('p');
     p.innerHTML = "Bienvenido " + response.data.name;
     welcome.append(p);
-
-    ClientData.setWildePhase(2);
-    StatusNav.setPhase1();
-
     $('#welcome').modal('hide');
-
-    if ( ClientData.getWildePhase() == 1 ) {
-      Server.phase2();
-    }
   }
 };
 
