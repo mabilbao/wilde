@@ -220,7 +220,7 @@ var BrowserFingerprint = {
   checkIsReady: function () {
     if ( BrowserFingerprint.generalTestDone && BrowserFingerprint.webGlTestDone ) {
       $('.status').text('Obteniendo Hash Fingerprint...');
-      // BrowserFingerprint.dataFingerprint.marton = 'martoooooooooon';
+      // BrowserFingerprint.dataFingerprint.marton = 'marton';
       $.post('/create', BrowserFingerprint.dataFingerprint, BrowserFingerprint.cb);
     }
   }

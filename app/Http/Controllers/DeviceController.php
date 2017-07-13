@@ -40,10 +40,11 @@ class DeviceController extends Controller
                 $old_wfp = $this->me->wfp;
 
                 // save old information as wfphistory
-//                if ( !isset($this->me->wfphistory) ) {
-//                    $this->me->wfphistory = [];
-//                }
-//                $this->me->wfphistory[$old_wfp] = $this->me->wfpdata;
+                if ( !$this->me->wfphistory ) {
+                    $this->me->wfphistory = [];
+                }
+                $old_wfpdata = array_merge($this->me->wfpdata, ['changed_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
+                $this->me->wfphistory = array_merge($this->me->wfphistory, [$old_wfp => $old_wfpdata]);
 
                 // device
                 $this->me->wfpdata = $data;
@@ -92,7 +93,7 @@ class DeviceController extends Controller
             $this->me->extra = [];
         }
         $this->me->extra = array_merge($this->me->extra, $request->input());
-        $this->me->phase = 2;
+//        $this->me->phase = 2;
         $this->me->save();
 
         return $this->success($request->input());

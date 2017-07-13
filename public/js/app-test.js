@@ -44377,7 +44377,7 @@ var ExtraData = {
     data.osVersion = client.getOSVersion();
     data.isMobile = client.isMobile();
 
-    console.log( browser );
+    console.log( data );
 
     ExtraData.cb();
   }

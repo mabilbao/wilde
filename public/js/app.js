@@ -44749,7 +44749,7 @@ var BrowserFingerprint = {
   checkIsReady: function () {
     if ( BrowserFingerprint.generalTestDone && BrowserFingerprint.webGlTestDone ) {
       $('.status').text('Obteniendo Hash Fingerprint...');
-      // BrowserFingerprint.dataFingerprint.marton = 'martoooooooooon';
+      // BrowserFingerprint.dataFingerprint.marton = 'marton';
       $.post('/create', BrowserFingerprint.dataFingerprint, BrowserFingerprint.cb);
     }
   }
@@ -44770,7 +44770,7 @@ var ExtraData = {
     data.osVersion = client.getOSVersion();
     data.isMobile = client.isMobile();
 
-    console.log( browser );
+    console.log( data );
 
     ExtraData.cb();
   }
