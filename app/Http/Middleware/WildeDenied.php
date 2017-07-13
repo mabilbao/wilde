@@ -13,13 +13,10 @@ class WildeDenied
         if ( !isset($_COOKIE['wilde-fp']) ) {
             return $next($request);
         }
+        $me = $request->attributes->get('me');
 
-        $wfp = $_COOKIE['wilde-fp'];
-        $rules = Rules::whereRule('denied')->get();
-        foreach ($rules as $rule) {
-            if ( $rule->value == $wfp ) {
-                return redirect('denied');
-            }
+        if ( isset($me->isDenied) && $me->isDenied ) {
+            return redirect('denied');
         }
 
         return $next($request);

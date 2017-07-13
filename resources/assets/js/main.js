@@ -1,6 +1,7 @@
 var Main = {
   init: function () {
 
+    // Start Phases
     if (ClientData.getWildeFP()) {
       StatusNav.setPhase1();
       Loader.hideLoader();
@@ -10,7 +11,18 @@ var Main = {
       Server.phase1();
     }
 
+    // Set events
     $('.submit-form-welcome').click(Main.submitFormWelcome);
+
+    // Open modals
+    Main.openPromo();
+  },
+
+  openPromo: function() {
+    var promoModal = $('#promo');
+    if ( promoModal.length > 0 ) {
+      promoModal.modal();
+    }
   },
 
   submitFormWelcome: function () {

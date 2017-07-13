@@ -15,13 +15,12 @@ class WildeAdmin
             return redirect('/denied');
         }
 
-        $wfp = $_COOKIE['wilde-fp'];
-        $rules = Rules::whereRule('admin')->get();
-        foreach ($rules as $rule) {
-            if ( $rule->value == $wfp ) {
-                return $next($request);
-            }
+        $me = $request->attributes->get('me');
+
+        if ( isset($me->isAdmin) && $me->isAdmin ) {
+            return $next($request);
         }
+
         Session::flash('message', 'Usted no esta autorizado para ingresar a esta seccion.');
         return redirect('denied');
     }

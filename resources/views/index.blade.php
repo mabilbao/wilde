@@ -40,6 +40,7 @@
     </div>
 
     @include('partial.welcome-modal')
+    @include('partial.promo-modal')
 @endsection
 
 @push('scripts')

@@ -1,4 +1,3 @@
-<!-- Modal -->
 <div class="modal fade" id="welcome" tabindex="-1" role="dialog" aria-labelledby="welcomeLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

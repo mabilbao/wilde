@@ -30,7 +30,7 @@ class DeviceController extends Controller
     }
 
     public function store( Request $request ) {
-        $data = $this->sortInput($request->except('me'));
+        $data = $this->sortInput($request->except(['me', 'phase', 'isAdmin', 'isPromo', 'isDenied']));
         $wfp = md5(json_encode($data));
 
         if ( $this->me && $this->me->wfp ) {
@@ -49,6 +49,10 @@ class DeviceController extends Controller
                 // device
                 $this->me->wfpdata = $data;
                 $this->me->wfp = $wfp;
+
+                if( isset($this->me->isAdmin) ) unset($this->me->isAdmin);
+                if( isset($this->me->isPromo) ) unset($this->me->isPromo);
+                if( isset($this->me->isDenied) ) unset($this->me->isDenied);
                 $this->me->save();
 
                 // rules
@@ -67,10 +71,8 @@ class DeviceController extends Controller
                 $device = new Devices();
                 $device->setRawAttributes(['wfpdata' => $data]);
 
-                $date = new \DateTime();
                 $device->wfp = $wfp;
                 $device->phase = 1;
-//            $device->wfp = $wfp . '_' . $date->getTimestamp();
 
                 $device->save();
             }
@@ -81,9 +83,6 @@ class DeviceController extends Controller
     public function exampleStore ( Request $request ) {
         $data = $this->sortInput($request->input());
         $wfp = md5(json_encode($data));
-//        $date = new \DateTime();
-
-//        return $this->success(['wfp' => $wfp . '_' . $date->getTimestamp()]);
         return $this->success(['wfp' => $wfp]);
     }
 
@@ -92,10 +91,14 @@ class DeviceController extends Controller
         if ( !$this->me->extra ) {
             $this->me->extra = [];
         }
-        $this->me->extra = array_merge($this->me->extra, $request->except('phase'));
+        $this->me->extra = array_merge($this->me->extra, $request->except(['me', 'phase', 'isAdmin', 'isPromo', 'isDenied']));
         if ( $phase = $request->input('phase', false) ) {
             $this->me->phase = $phase;
         }
+        if( isset($this->me->isAdmin) ) unset($this->me->isAdmin);
+        if( isset($this->me->isPromo) ) unset($this->me->isPromo);
+        if( isset($this->me->isDenied) ) unset($this->me->isDenied);
+
         $this->me->save();
 
         return $this->success($request->input());
