@@ -15,6 +15,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  @media (max-width: 420px) {
+    height: 120px;
+  }
 }
 
 .nav {
@@ -28,6 +31,13 @@
 
     img {
       width: 100px;
+    }
+
+    @media (max-width: 420px) {
+      position: relative;
+      text-align: center;
+      left: 0;
+      top: 0;
     }
   }
 
@@ -64,4 +74,10 @@
     font-size: 20px;
   }
 
+  
+  .nav__titles {
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
 }

@@ -28,6 +28,18 @@ html, body {
   .img-left {
     width: 250px;
   }
+
+  @media (max-width: 420px) {
+    .img-left {
+      display: none;
+    }
+    .img-right {
+      width: 300px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }
 }
 
 .hash-container {
@@ -37,6 +49,9 @@ html, body {
   font-weight: 500;
   font-size: 27px;
   text-align: center;
+  @media (max-width: 420px) {
+    font-size: 14px;
+  }
 }
 
 .loader-container {
@@ -63,6 +78,17 @@ html, body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.container-text {
+  text-align: center;
+  font-size: 20px;
+  p {
+    margin-bottom: 60px;
+  }
+  @media (max-width: 420px) {
+    display: none;
+  }
 }
 
 

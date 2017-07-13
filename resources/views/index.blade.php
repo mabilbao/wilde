@@ -7,10 +7,10 @@
     <div class="container-fluid">
         <div class="hero">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-1">
                     <img class="img-right" src="hero.png">
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-1">
                     <img class="img-left" src="wicon2.png">
                     <h2>Sistema de trackeo y filtrado</h2>
                 </div>
@@ -26,14 +26,21 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus blandit dui in aliquet. Donec hendrerit tristique nunc, nec lacinia diam convallis eget. Mauris condimentum id magna quis accumsan. Pellentesque dignissim viverra lorem cursus sollicitudin. Donec at dolor vitae neque gravida pulvinar sit amet sit amet tortor. Fusce sodales posuere consequat. Vivamus et nisl non urna vehicula facilisis sit amet sit amet ligula. Curabitur rhoncus vitae felis vel interdum.
+            <div class="col-lg-12 container-text">
+                <h3>¿Que es un Browser?</h3>
+                <p>Es un software, aplicación o programa que permite el acceso a la Web, interpretando la información de distintos tipos de archivos y sitios web para que estos puedan ser visualizados.
+                    La funcionalidad básica de un navegador web es permitir la visualización de documentos de texto, posiblemente con recursos multimedia incrustados.
+                    Además, permite visitar páginas web y hacer actividades en ella, es decir,
+                    enlazar un sitio con otro, imprimir, enviar y recibir correo, entre otras funcionalidades más.</p>
 
-                Aenean in malesuada diam, vitae pretium massa. Sed dapibus diam vitae vulputate mollis. Ut vestibulum finibus neque a euismod. Praesent vel risus massa. Nulla hendrerit vel dolor eget molestie. Duis est felis, pulvinar ut leo non, lacinia malesuada ligula. Suspendisse eget quam maximus, euismod nisi scelerisque, ullamcorper odio. Nunc ut augue nec nibh tincidunt sodales non non mi. Suspendisse potenti. Cras tempus finibus turpis, sed malesuada felis egestas vel.
+                <h3>¿Que es un Fingerprint?</h3>
+                <p>Impresión dejada por la fricción de la rugosidad de un dedo humano. Las huellas humanas son precisas,
+                    casi únicas, difíciles de alterar y duraderas durante la vida de un individuo,
+                    haciéndolas adecuadas como una marca de la identidad humana a largo plazo.</p>
 
-                Phasellus dui quam, hendrerit quis tempor vitae, vulputate et mi. Duis et lectus tempor, vehicula enim sit amet, semper magna. Suspendisse vestibulum molestie odio et imperdiet. Sed vel orci massa. Ut vulputate, leo eget porttitor fringilla, orci lacus fringilla tortor, vel semper nulla purus eu ipsum. Aliquam sit amet tincidunt turpis. Suspendisse vestibulum libero quis urna eleifend vulputate. Praesent facilisis non sem ac varius. Mauris scelerisque leo nec est tristique efficitur volutpat at justo. Fusce sit amet leo vitae neque pharetra lobortis sit amet nec urna. Praesent rutrum odio ac aliquam pellentesque. Phasellus quis convallis mauris. Donec accumsan urna consectetur purus cursus, id viverra ante blandit. In eget lorem ac eros vestibulum rutrum. Curabitur elementum arcu porttitor, placerat neque a, congue elit. Morbi tincidunt diam ut neque pharetra interdum.
-
-                Integer accumsan, lectus et iaculis eleifend, augue ligula vulputate nulla, eu laoreet tortor tortor sed nunc. Quisque finibus leo non libero pharetra condimentum. Pellentesque porttitor dolor ac accumsan scelerisque. Donec eget eleifend ante, ac scelerisque lectus. Suspendisse potenti. Nulla sollicitudin eu justo nec elementum. Sed vel faucibus nulla. Etiam sed purus id neque semper sagittis id eu libero. Quisque in libero pellentesque, placerat magna at, commodo nulla. Praesent consectetur massa ut scelerisque efficitur. Praesent eros elit, gravida eget lacinia a, mattis vitae eros. Morbi at efficitur massa. Cras laoreet varius purus.
+                <h3>¿Que es un Browser-Fingerprint?</h3>
+                <p>Una forma en la que los sitios web recuerden y rastrean computadoras o dispositivos individuales,
+                    cargando un pequeño paquete de datos en las computadoras de los visitante.
                 </p>
             </div>
         </div>
